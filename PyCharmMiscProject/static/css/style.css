@@ -1,0 +1,232 @@
+/* Configurações Gerais */
+:root {
+    --bg-color: #F8F1E5; /* Bege clarinho da imagem */
+    --primary-brown: #5D2A14; /* Marrom escuro do banner */
+    --secondary-brown: #8D5B3E; /* Marrom dos textos */
+    --accent-brown: #4A200F; /* Botão ativo */
+    --card-bg: #FFFFFF;
+    --text-muted: #7A7A7A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-brown);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header e Top Bar */
+.header-container {
+    padding: 20px 40px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo-central {
+    height: 80px;
+}
+
+/* Toggle Dark Mode Estilizado */
+.switch {
+    background: var(--primary-brown);
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+/* Banner Principal */
+.banner-principal {
+    background-color: var(--primary-brown);
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 80px;
+    color: white;
+    position: relative;
+    overflow: visible; /* Permite a imagem sair para fora se desejar */
+}
+
+.banner-sub {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.banner-titulo {
+    font-size: 3.5rem;
+    color: #FFB800; /* Amarelo/Dourado do nome Carvalho */
+}
+
+.btn-ver-cardapio {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: none;
+    background: white;
+    color: var(--primary-brown);
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-imagem img {
+    max-width: 450px;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+}
+
+/* Filtros e Carrinho */
+.filtros-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.filtros-lista {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-categoria {
+    padding: 10px 25px;
+    border-radius: 15px;
+    border: none;
+    background: #EBE3D5;
+    color: var(--secondary-brown);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.btn-categoria.active {
+    background: var(--primary-brown);
+    color: white;
+}
+
+.carrinho-contador {
+    background: #EBE3D5;
+    padding: 10px 20px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--primary-brown);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Seções e Grid */
+.titulo-secao {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.linha-secao {
+    border: 0;
+    border-top: 1px solid #D1C7B7;
+    margin-bottom: 30px;
+}
+
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Colunas como na foto */
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+/* Cards de Produto */
+.card-item {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    border-radius: 15px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.card-header-item h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.btn-add-cart {
+    background: #EBE3D5;
+    border: none;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .grid-produtos { grid-template-columns: repeat(2, 1fr); }
+    .banner-principal { flex-direction: column; text-align: center; padding: 40px; }
+    .banner-imagem img { max-width: 300px; margin-top: 20px; }
+}
+
+body.dark-theme {
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --primary-brown: #EBE3D5; /* Inverte as cores para ler melhor */
+    color: #f1f1f1;
+}
+body.dark-theme .btn-categoria {
+    background: #333;
+    color: #fff;
+}
