@@ -1,0 +1,477 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS E CORES
+   ========================================= */
+:root {
+    --bg-body: #F6F1E6;
+    --bg-card: #F0ECE1;
+    --text-color: #702E0D;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --btn-toggle: #3D1807;
+    --indicador: #E0D1AF;
+    --cor-legenda: rgba(0, 0, 0, 0.75);
+    /* Cores auxiliares baseadas na sua paleta */
+    --accent-yellow: #FFBD09;
+    --line-color: #D1C7B7;
+    --bg-button-light: #EBE3D5;
+}
+
+body.tema-escuro {
+    --bg-body: #1A110E;
+    --bg-card: #2D1D17;
+    --text-color: #F0ECE1;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --btn-toggle: #F0ECE1;
+    --indicador: #2D1D17;
+    --cor-legenda: rgba(240, 236, 225, 0.7);
+    --line-color: #422b24;
+}
+
+/* --- AJUSTES DO BANNER NO MODO ESCURO --- */
+/* Forçamos o Banner a ficar bege claro no modo dark, igual ao print */
+body.tema-escuro .banner-principal {
+    background-color: #F0ECE1 !important;
+}
+
+/* Forçamos os textos do banner a ficarem no marrom escuro que você pediu */
+body.tema-escuro .banner-principal .banner-sub,
+body.tema-escuro .banner-principal h1,
+body.tema-escuro .banner-principal p,{
+    color: #2D1D17 !important;
+    opacity: 1; /* Garante que não fique transparente */
+
+
+}
+
+/* O botão "Ver Cardápio" dentro do banner fica escuro no modo dark */
+body.tema-escuro .btn-ver-cardapio {
+    background-color: #2D1D17 !important;
+    color: #F0ECE1 !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* =========================================
+   2. HEADER E TOP BAR
+   ========================================= */
+.header-container {
+    padding: 20px 40px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.grupo-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-central {
+    height: 80px;
+}
+
+.btn-voltar img {
+    height: 30px;
+    display: block;
+}
+
+/* Switch Estilizado */
+/* Estilo do indicador (a parte que se move) */
+.switch .indicador {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;  /* Ajuste conforme o tamanho do seu botão */
+    height: 26px; /* Ajuste conforme o tamanho do seu botão */
+    background-color: var(--indicador);
+    border-radius: 50%;
+    transition: transform 0.3s ease; /* Faz o movimento ser suave */
+    z-index: 0; /* Fica atrás dos ícones se eles forem transparentes */
+}
+
+/* Container do Switch */
+/* 1. Esconde o quadrado branco horroroso */
+#dark-mode {
+    display: none;
+}
+
+/* 2. O corpo do botão (Label) - Aumentado */
+.switch label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80px;        /* Aumentado de 65px para 90px */
+    height: 40px;       /* Aumentado de 32px para 44px */
+    background-color: var(--btn-toggle);
+    border-radius: 50px;
+    padding: 0 10px;    /* Mais respiro nas laterais */
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background 0.3s ease;
+}
+
+/* 3. O Indicador (A bolinha branca) */
+.switch .indicador {
+    position: absolute;
+    /* Com height 40px e bolinha 32px, sobra 8px (4px para o topo e 4px para baixo) */
+    top: 4px;
+    left: 4px;
+    width: 32px;        /* Reduzi levemente para 32px para o respiro ficar igual em todos os lados (4px) */
+    height: 32px;
+    background-color: var(--indicador);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* 4. O movimento de deslizar */
+#dark-mode:checked + label .indicador {
+    transform: translateX(40px);
+}
+
+/* Garante que os ícones fiquem visíveis sob a bolinha ou nas pontas */
+.icon-moon, .icon-sun {
+    width: 18px;
+    height: 18px;
+    z-index: 1;
+    position: relative;
+    margin: 0 2px;
+}
+
+/* =========================================
+   3. BANNER PRINCIPAL
+   ========================================= */
+.banner-principal {
+    background-color: var(--text-color); /* Marrom no modo claro */
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 40px auto;
+    padding: 40px 70px;
+    color: white; /* Texto branco no modo claro */
+    min-height: 280px;
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.banner-imagem img {
+    max-width: 400px; /* Tamanho da foto do sanduíche */
+    height: auto;
+    /* Faz a imagem "flutuar" levemente para fora ou ficar bem encaixada */
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+}
+
+.banner-titulo {
+    font-size: 2.8rem; /* Ajustado para caber na nova altura */
+    line-height: 1;
+    color: var(--accent-yellow);
+    margin-bottom: 10px;
+    padding: 1px;
+}
+.banner-sub {
+    font-size: 1.1rem;
+    font-weight: 600;
+    opacity: 0.9;
+    margin-left: 5px;
+}
+
+.btn-ver-cardapio {
+    margin-top: 25px;
+    padding: 10px 20px;
+    border-radius: 50px; /* Totalmente arredondado */
+    border: none;
+    background-color: var(--bg-body); /* Bege clarinho */
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content; /* Faz o botão ter apenas o tamanho do texto */
+}
+
+.btn-ver-cardapio:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+}
+
+/* =========================================
+   4. FILTROS E GRID
+   ========================================= */
+.filtros-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1300px;
+    margin: 10px auto 40px auto;
+    margin-top: -30px;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+}
+.filtros-lista {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    align-items: center;
+    gap: 12px;               /* Diminuí de 15px para 12px para ficarem mais próximos */
+    flex-wrap: wrap;
+}
+.btn-categoria {
+    padding: 12px 30px;
+    border-radius: 20px; /* Formato de pílula */
+    border: none;
+    background-color: var(--bg-card); /* Bege clarinho das variáveis */
+    color: var(--text-color);      /* Marrom das variáveis */
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow); /* Sombra suave da foto */
+}
+/* Estado Ativo (O botão Marrom) */
+.btn-categoria.active {
+    background-color: var(--text-color); /* Marrom escuro */
+    color: var(--bg-body);             /* Texto claro */
+    transform: translateY(-2px);       /* Leve elevação */
+}
+.btn-categoria:hover:not(.active) {
+    background-color: #e6dec9; /* Um bege levemente mais escuro */
+    transform: translateY(-1px);
+}
+.carrinho-contador {
+    background-color: var(--bg-card);
+    padding: 10px 20px;
+    height: 44px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px var(--shadow);
+    cursor: pointer;
+    position: relative;
+    margin-left: 5px;
+}
+/* Ajuste do ícone para não ser empurrado pelo badge */
+.carrinho-contador img {
+    width: 24px;
+    height: auto;
+    display: block;
+}
+/* O Badge (o círculo marrom com o número) */
+.badge {
+    position: absolute; /* Ele flutua em relação ao carrinho-contador */
+    top: -8px;
+    right: -8px;
+    background-color: var(--text-color); /* Marrom das Cantinas */
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    border: 2px solid var(--bg-body);
+}
+
+/* =========================================
+   5. CARDS DE PRODUTO
+   ========================================= */
+/* Container das seções */
+.secao-produtos {
+    max-width: 1300px; /* Alinhado com o seu banner */
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+}
+
+.titulo-secao {
+    margin-top: 40px;
+    font-size: 1.8rem;
+    color: var(--text-color);
+}
+
+.linha-secao {
+    border: 0;
+    border-top: 2px solid var(--line-color);
+    margin-bottom: 20px;
+}
+
+/* O Grid de 4 colunas */
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Card conforme a imagem */
+.card-item {
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    padding: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.card-item:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 160px; /* Altura fixa para as imagens não desalinharem os cards */
+    object-fit: cover; /* Corta a imagem sem distorcer */
+    border-radius: 10px;
+}
+
+.card-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.card-header-item h3 {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.card-desc {
+    font-size: 0.8rem;
+    color: var(--cor-legenda);
+    margin-top: 5px;
+    line-height: 1.3;
+}
+.card-preco {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-color); /* Marrom das Cantinas */
+    margin-top: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.card-preco span {
+    font-size: 0.9rem; /* O "R$" fica menorzinho */
+    font-weight: 600;
+}
+
+.btn-add-cart {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+    line-height: 1;
+    text-align: center;
+    transition: transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+    border-radius: 10px;
+}
+.btn-add-cart:hover {
+    transform: scale(1.05); /* Dá um leve "pulo" */
+}
+.btn-add-cart:active {
+    transform: scale(0.95);
+}
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+#btnSubir {
+    display: none; /* JS controla isso */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 45px;
+    height: 45px;
+    background-color: var(--btn-toggle);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+#btnSubir img {
+    width: 20px;
+    /* Faz a seta ficar clara no modo claro e escura no dark se necessário */
+    filter: brightness(0) invert(1);
+}
+
+#btnSubir:hover {
+    transform: scale(1.1);
+}
+.tema-escuro .icon-moon,
+.tema-escuro .icon-sun {
+    filter: brightness(0) invert(1);
+}
+
+body.tema-escuro .banner-sub,
+body.tema-escuro .banner-info h2,
+body.tema-escuro .banner-info p {
+    color: #2D1D17 !important; /* A cor que você pediu */
+}
+body.tema-escuro .btn-ver-cardapio {
+    background-color: #2D1D17 !important;
+    color: #F0ECE1 !important; /* Texto bege no botão */
+}
+body.tema-escuro .badge {
+    background-color: #F0ECE1 !important; /* Cor bege claro */
+    color: #2D1D17 !important;            /* Número em marrom escuro */
+    border-color: #1A110E !important;     /* Borda da cor do fundo do site */
+}
+/* --- AJUSTE DO BOTÃO SUBIR NO MODO ESCURO --- */
+body.tema-escuro #btnSubir {
+    /* Invertemos: fundo claro para destacar no fundo preto do site */
+    background-color: #F0ECE1 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sombra mais forte no dark */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.tema-escuro #btnSubir img {
+    /* A seta agora precisa ser escura para aparecer no fundo claro */
+    filter: brightness(0) saturate(100%) invert(13%) sepia(18%) saturate(1553%) hue-rotate(338deg) brightness(92%) contrast(95%);
+    /* Dica: se o filtro acima for complexo, 'filter: brightness(0)' resolve para deixar a seta preta */
+}
+
+body.tema-escuro #btnSubir:hover {
+    background-color: #EBE3D5 !important; /* Um bege levemente mais escuro no hover */
+    transform: translateY(-5px) scale(1.1); /* Dá um pulinho para cima */
+}
